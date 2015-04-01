@@ -32,9 +32,9 @@ function islandora_book_admin_settings_form(array $form, array &$form_state) {
         '#type' => 'checkboxes',
         '#element_validate' => array('islandora_book_admin_settings_form_ingest_derivatives_validate'),
         '#options' => array(
-          'pdf' => t('PDF datastream. <b>Requires</b> <i>ImageMagick</i>'),
-          'image' => t('Image datastreams (TN, JPEG, JP2). <b>Requires</b> <i>Large Image Solution Pack</i>'),
-          'ocr' => t('OCR datastreams (OCR, HOCR). <b>Requires</b> <i>Islandora OCR module</i>'),
+          'pdf' => t('PDF datastream. <strong>Requires</strong> <em>ImageMagick</em>'),
+          'image' => t('Image datastreams (TN, JPEG, JP2). <strong>Requires</strong> <em>Large Image Solution Pack</em>'),
+          'ocr' => t('OCR datastreams (OCR, HOCR). <strong>Requires</strong> <em>Islandora OCR module</em>'),
         ),
         '#default_value' => $get_default_value('islandora_book_ingest_derivatives', drupal_map_assoc(
                             array('pdf', 'image', 'ocr'))),
@@ -51,25 +51,12 @@ function islandora_book_admin_settings_form(array $form, array &$form_state) {
     '#size' => 30,
   );
 
-  // Metadata display.
-  $form['metadata_display_fieldset'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Metadata display'),
-  );
-
-  $form['metadata_display_fieldset']['islandora_book_metadata_display'] = array(
-    '#type' => 'checkbox',
-    '#title' => t("Display object metadata"),
-    '#description' => t("Display object metadata below object viewer."),
-    '#default_value' => variable_get('islandora_book_metadata_display', FALSE),
-  );
-
   module_load_include('inc', 'islandora', 'includes/solution_packs');
   $form += islandora_viewers_form('islandora_book_viewers', NULL, 'islandora:bookCModel');
   $form['book_viewers'] = $form['viewers'];
   $form['book_viewers']['#title'] = t('Book Viewers');
   unset($form['viewers']);
-  $form += islandora_viewers_form('islandora_book_page_viewers', 'image/jp2', 'islandora:pageCModel');
+  $form += islandora_viewers_form('islandora_book_page_viewers', 'image/jp2');
   $form['page_viewers'] = $form['viewers'];
   $form['page_viewers']['#title'] = t('Page Viewers');
   unset($form['viewers']);
